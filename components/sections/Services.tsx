@@ -1,8 +1,18 @@
 import React from "react";
 import Link from "next/link";
-import { SERVICES } from "@/constants";
+import { client } from "@/sanity/lib/client";
 
-export default function Services() {
+// GROQ Query to fetch services from Sanity
+const servicesQuery = `*[_type == "service"] {
+  title,
+  description,
+  icon
+}`;
+
+export default async function Services() {
+  // Fetching data with 10-second revalidation (Cache fix)
+  const services = await client.fetch(servicesQuery, {}, { next: { revalidate: 10 } });
+
   return (
     <section className="py-24 relative">
       <div className="container mx-auto px-6 max-w-5xl">
@@ -12,7 +22,7 @@ export default function Services() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          {SERVICES.map((s, i) => (
+          {services?.map((s: any, i: number) => (
             <div key={i} className="p-8 bg-white/50 backdrop-blur-sm border border-black/5 rounded-2xl hover:border-brand-copper/30 transition-all group">
               <div className="w-10 h-10 bg-white border border-black/5 rounded-lg flex items-center justify-center mb-6 text-brand-teal group-hover:bg-brand-copper group-hover:text-white transition-colors duration-500">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,7 +35,6 @@ export default function Services() {
           ))}
         </div>
 
-        {/* --- RESTORED BUTTON --- */}
         <div className="flex justify-start">
           <Link 
             href="/services" 

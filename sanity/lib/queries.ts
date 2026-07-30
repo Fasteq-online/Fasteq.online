@@ -1,0 +1,34 @@
+import { groq } from "next-sanity";
+
+export const servicesQuery = groq`*[_type == "service"] { title, description, icon }`;
+
+export const projectsQuery = groq`*[_type == "project"] | order(year desc) {
+  title, category, year, "imageUrl": mainImage.asset->url
+}`;
+
+export const detailedProjectsQuery = groq`*[_type == "project"] | order(year desc) {
+  title, category, description, year, tags, color, "imageUrl": mainImage.asset->url
+}`;
+
+// NEW: Team Queries
+export const teamQuery = groq`*[_type == "team"] | order(isCEO desc) {
+  name, role, bio, isCEO, "imageUrl": image.asset->url
+}`;
+
+export const ceoQuery = groq`*[_type == "team" && isCEO == true][0] {
+  name, role, bio, "imageUrl": image.asset->url
+}`;
+
+export const statsQuery = groq`*[_type == "stat"] | order(_createdAt asc)`;
+export const pricingQuery = groq`*[_type == "pricing"] | order(order asc)`;
+
+// Clients Marquee
+export const clientsQuery = groq`*[_type == "client"] { name }`;
+
+// Detailed Services (Full Data)
+export const detailedServicesQuery = groq`*[_type == "service"] | order(_createdAt asc) {
+  title, description, icon, category, features, color
+}`;
+export const contactQuery = groq`*[_type == "contactInfo"][0] {
+  email, location, phone, instagram, linkedin
+}`;
