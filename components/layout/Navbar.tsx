@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
+import Image from "next/image";
 import { NAV_LINKS } from "@/constants";
 
 export default function Navbar() {
@@ -40,12 +41,18 @@ export default function Navbar() {
         >
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-8 h-8 bg-[#C87D4F] rounded-xl flex items-center justify-center transition-all duration-500 group-hover:rotate-45 group-hover:bg-[#0D2E2F] shadow-lg shadow-[#C87D4F]/30">
-              <span className="w-2 h-2 bg-white rounded-full transition-transform duration-500 group-hover:scale-125" />
+            <div className="relative w-9 h-9 rounded-xl overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+              <Image
+                src="/assets/images/logo.png"
+                alt="FASTEQ Logo"
+                width={36}
+                height={36}
+                className="w-full h-full object-contain"
+              />
             </div>
             <div className="flex flex-col text-left">
               <span className="font-heading font-extrabold text-sm tracking-widest text-[#F8F6F3] uppercase leading-none">FASTEQ</span>
-              <span className="text-[8px] font-mono tracking-widest text-[#C87D4F] uppercase font-bold hidden sm:block mt-0.5">Architecture Studio</span>
+              <span className="text-[8px] font-mono tracking-widest text-[#C87D4F] uppercase font-bold hidden sm:block mt-0.5">Tech &amp; Design</span>
             </div>
           </Link>
 

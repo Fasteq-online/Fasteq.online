@@ -28,8 +28,8 @@ export const ADVANTAGES = [
 
 export const STATS = [
   { label: "Uptime SLA", value: 99.9, suffix: "%", prefix: "" },
-  { label: "Design Awards", value: 24, suffix: "+", prefix: "" },
-  { label: "Global Clients", value: 150, suffix: "+", prefix: "" },
+  { label: "Projects Delivered", value: 50, suffix: "+", prefix: "" },
+  { label: "Global Clients", value: 25, suffix: "+", prefix: "" },
   { label: "Lines of Code", value: 1.2, suffix: "M", prefix: "" },
 ];
 

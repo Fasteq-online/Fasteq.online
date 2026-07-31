@@ -154,8 +154,8 @@ export default function Hero() {
         >
           {[
             { label: "99.9% UPTIME SLA", color: "#C87D4F" },
-            { label: "24 DESIGN AWARDS", color: "#4EA8A8" },
-            { label: "150+ GLOBAL CLIENTS", color: "#C87D4F" },
+            { label: "50+ PROJECTS DELIVERED", color: "#4EA8A8" },
+            { label: "25+ GLOBAL CLIENTS", color: "#C87D4F" },
           ].map((pill, i) => (
             <div
               key={i}

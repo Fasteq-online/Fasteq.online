@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { NAV_LINKS } from "@/constants";
 
@@ -34,12 +34,18 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-2 text-left">
             <Link href="/" className="flex items-center gap-3 mb-6 group">
-              <div className="w-9 h-9 bg-[#C87D4F] rounded-xl flex items-center justify-center group-hover:bg-[#0D2E2F] transition-all duration-300 shadow-lg shadow-[#C87D4F]/20">
-                <span className="w-2.5 h-2.5 bg-white rounded-full group-hover:bg-[#C87D4F] transition-colors" />
+              <div className="relative w-9 h-9 rounded-xl overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+                <Image
+                  src="/assets/images/logo.png"
+                  alt="FASTEQ Logo"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <span className="font-heading font-extrabold text-2xl tracking-widest text-[#F8F6F3] uppercase block leading-none">FASTEQ</span>
-                <span className="text-[9px] font-mono tracking-widest text-[#C87D4F] uppercase font-bold mt-0.5 block">Architecture Studio</span>
+                <span className="text-[9px] font-mono tracking-widest text-[#C87D4F] uppercase font-bold mt-0.5 block">Tech &amp; Design</span>
               </div>
             </Link>
 

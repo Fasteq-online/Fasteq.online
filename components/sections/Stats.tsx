@@ -12,8 +12,8 @@ export default async function Stats() {
 
   const displayStats = stats && stats.length > 0 ? stats : [
     { label: "Uptime SLA", value: "99.9", suffix: "%", prefix: "" },
-    { label: "Design Awards", value: "24", suffix: "+", prefix: "" },
-    { label: "Global Clients", value: "150", suffix: "+", prefix: "" },
+    { label: "Projects Delivered", value: "50", suffix: "+", prefix: "" },
+    { label: "Global Clients", value: "25", suffix: "+", prefix: "" },
     { label: "Code Accuracy", value: "100", suffix: "%", prefix: "" },
   ];
 
