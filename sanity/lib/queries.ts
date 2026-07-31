@@ -2,12 +2,17 @@ import { groq } from "next-sanity";
 
 export const servicesQuery = groq`*[_type == "service"] | order(order asc) { title, description, icon, order }`;
 
-export const projectsQuery = groq`*[_type == "project"] | order(year desc) {
-  title, category, year, "imageUrl": mainImage.asset->url
+export const projectsQuery = groq`*[_type == "project"] | order(order asc) {
+  title, category, year, order, "imageUrl": mainImage.asset->url
 }`;
 
-export const detailedProjectsQuery = groq`*[_type == "project"] | order(year desc) {
-  title, category, description, year, tags, color, "imageUrl": mainImage.asset->url
+// Featured projects for homepage — only top 4 by order
+export const featuredProjectsQuery = groq`*[_type == "project"] | order(order asc) [0...4] {
+  title, category, year, order, "imageUrl": mainImage.asset->url
+}`;
+
+export const detailedProjectsQuery = groq`*[_type == "project"] | order(order asc) {
+  title, category, description, year, tags, color, order, "imageUrl": mainImage.asset->url
 }`;
 
 // NEW: Team Queries

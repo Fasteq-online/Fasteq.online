@@ -53,7 +53,30 @@ export default async function ServicesPage() {
                 <span className="font-mono text-[11px] uppercase tracking-[0.3em] font-bold text-[#C87D4F]">
                   {s.category || `DOMAINS / ${(s.order ?? (i + 1)) < 10 ? `0${s.order ?? (i + 1)}` : s.order ?? (i + 1)}`}
                 </span>
-                <h3 className="text-3xl md:text-4xl font-heading font-extrabold mt-16 leading-tight text-[#F8F6F3] group-hover:text-[#C87D4F] transition-colors">
+
+                {/* Service Icon */}
+                <div className="my-8 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-2xl border border-[#C87D4F]/20 bg-[#C87D4F]/[0.08] flex items-center justify-center shadow-lg shadow-[#C87D4F]/5 group-hover:bg-[#C87D4F]/[0.15] group-hover:border-[#C87D4F]/40 transition-all duration-500">
+                    <svg className="w-10 h-10 text-[#C87D4F] group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d={
+                        s.icon ||
+                        (s.category?.toLowerCase().includes('development')
+                          ? 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4'
+                          : s.category?.toLowerCase().includes('intelligence') || s.category?.toLowerCase().includes('ai')
+                          ? 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
+                          : s.category?.toLowerCase().includes('design')
+                          ? 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01'
+                          : s.category?.toLowerCase().includes('marketing')
+                          ? 'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z'
+                          : s.category?.toLowerCase().includes('mobile')
+                          ? 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z'
+                          : 'M13 10V3L4 14h7v7l9-11h-7z')
+                      } />
+                    </svg>
+                  </div>
+                </div>
+
+                <h3 className="text-3xl md:text-4xl font-heading font-extrabold leading-tight text-[#F8F6F3] group-hover:text-[#C87D4F] transition-colors">
                   {s.title}
                 </h3>
               </div>

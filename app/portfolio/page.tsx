@@ -2,16 +2,8 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
+import { detailedProjectsQuery } from "@/sanity/lib/queries";
 import { DETAILED_PROJECTS } from "@/constants";
-
-const detailedProjectsQuery = `*[_type == "project"] | order(year desc) {
-  title,
-  category,
-  description,
-  year,
-  tags,
-  "imageUrl": mainImage.asset->url
-}`;
 
 export default async function PortfolioPage() {
   let projects: any[] = [];

@@ -2,19 +2,13 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
+import { featuredProjectsQuery } from "@/sanity/lib/queries";
 import { PROJECTS } from "@/constants";
-
-const projectsQuery = `*[_type == "project"] | order(year desc) [0...4] {
-  title,
-  category,
-  year,
-  "imageUrl": mainImage.asset->url
-}`;
 
 export default async function Portfolio() {
   let projects: any[] = [];
   try {
-    projects = await client.fetch(projectsQuery, {}, { next: { revalidate: 10 } });
+    projects = await client.fetch(featuredProjectsQuery, {}, { next: { revalidate: 10 } });
   } catch (error) {
     console.error("Sanity projects error:", error);
   }
