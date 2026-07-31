@@ -4,56 +4,98 @@ import { client } from "@/sanity/lib/client";
 import { contactQuery } from "@/sanity/lib/queries";
 
 export default async function ContactPage() {
-  // Fetching editable Gmail and Location from Sanity
-  const info = await client.fetch(contactQuery, {}, { next: { revalidate: 10 } });
+  let info: any = null;
+  try {
+    info = await client.fetch(contactQuery, {}, { next: { revalidate: 10 } });
+  } catch (error) {
+    console.error("Sanity contact info error:", error);
+  }
 
   return (
-    <main className="pt-48 pb-24 min-h-screen font-sans relative">
+    <main className="pt-40 md:pt-48 pb-28 min-h-screen bg-[#07191A] text-white relative overflow-hidden">
+      {/* Glows */}
+      <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-[#C87D4F]/6 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#0D2E2F]/60 rounded-full blur-[160px] pointer-events-none" />
+
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
-        <div className="grid lg:grid-cols-2 gap-20 items-start">
+        <div className="grid lg:grid-cols-12 gap-16 lg:gap-20 items-start">
           
-          {/* Left Side: Live Editable Content */}
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-teal/10 bg-white/50 mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-copper animate-pulse" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-brand-teal/50">Direct Communication</span>
+          {/* Left Side: Contact Information & Headquarters */}
+          <div className="lg:col-span-5 text-left">
+            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-[#C87D4F]/25 bg-white/[0.04] backdrop-blur-md mb-8">
+              <span className="w-2 h-2 rounded-full bg-[#C87D4F] animate-pulse" />
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-[#C87D4F]">
+                DIRECT ADVISORY CHANNEL
+              </span>
             </div>
             
-            <h1 className="text-6xl md:text-8xl font-extrabold text-brand-teal tracking-tighter mb-10 leading-none">
-              Let's <span className="text-brand-copper">Sync.</span>
+            <h1 className="text-5xl sm:text-7xl font-heading font-extrabold text-[#F8F6F3] tracking-tight mb-8 leading-[0.9]">
+              Initiate <br />
+              <span className="text-[#C87D4F] italic font-extrabold">Dialogue.</span>
             </h1>
             
-            <p className="text-xl text-brand-teal/50 mb-16 max-w-md font-medium">
-              Ready to architect your next digital legacy? We are currently accepting new projects.
+            <p className="text-[#F8F6F3]/50 text-lg mb-12 max-w-md font-normal leading-relaxed">
+              We consult on enterprise product design, Next.js core systems, and custom AI agents. Select your parameters below.
             </p>
 
-            <div className="space-y-10">
-              <div className="group">
-                <h4 className="text-[10px] font-mono font-bold text-brand-copper uppercase tracking-widest mb-2">Gmail Address</h4>
-                <p className="text-2xl font-bold text-brand-teal hover:text-brand-copper transition-colors cursor-pointer">
+            <div className="space-y-6">
+              <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] shadow-sm">
+                <h4 className="text-[10px] font-mono font-bold text-[#C87D4F] uppercase tracking-widest mb-2">
+                  DIRECT EMAIL INBOX
+                </h4>
+                <a 
+                  href={`mailto:${info?.email || "hello@fasteq.com"}`}
+                  className="text-xl md:text-2xl font-heading font-extrabold text-[#F8F6F3] hover:text-[#C87D4F] transition-colors block"
+                >
                   {info?.email || "hello@fasteq.com"}
-                </p>
+                </a>
               </div>
 
-              <div className="group">
-                <h4 className="text-[10px] font-mono font-bold text-brand-copper uppercase tracking-widest mb-2">Office Location</h4>
-                <p className="text-2xl font-bold text-brand-teal leading-tight max-w-xs">
+              <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] shadow-sm">
+                <h4 className="text-[10px] font-mono font-bold text-[#C87D4F] uppercase tracking-widest mb-2">
+                  STUDIO HEADQUARTERS
+                </h4>
+                <p className="text-lg font-heading font-bold text-[#F8F6F3] leading-snug">
                   {info?.location || "Innovation District, Tech Plaza, ST-40"}
                 </p>
               </div>
               
-              {/* Socials - Pre-set for Studio feel */}
-              <div className="flex gap-8 pt-6 border-t border-black/5">
-                <a href={info?.instagram || "#"} className="text-xs font-bold font-mono opacity-40 hover:opacity-100 hover:text-brand-copper transition-all">INSTAGRAM</a>
-                <a href={info?.linkedin || "#"} className="text-xs font-bold font-mono opacity-40 hover:opacity-100 hover:text-brand-copper transition-all">LINKEDIN</a>
-                <a href="#" className="text-xs font-bold font-mono opacity-40 hover:opacity-100 hover:text-brand-copper transition-all">TWITTER (X)</a>
+              {/* Social Channels */}
+              <div className="flex flex-wrap gap-6 pt-4">
+                <a 
+                  href={info?.instagram || "#"} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-xs font-mono font-bold text-[#F8F6F3]/40 hover:text-[#C87D4F] transition-colors uppercase tracking-wider"
+                >
+                  INSTAGRAM
+                </a>
+                <a 
+                  href={info?.linkedin || "#"} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-xs font-mono font-bold text-[#F8F6F3]/40 hover:text-[#C87D4F] transition-colors uppercase tracking-wider"
+                >
+                  LINKEDIN
+                </a>
+                <a 
+                  href="#" 
+                  className="text-xs font-mono font-bold text-[#F8F6F3]/40 hover:text-[#C87D4F] transition-colors uppercase tracking-wider"
+                >
+                  TWITTER (X)
+                </a>
               </div>
             </div>
           </div>
 
-          {/* Right Side: The Form */}
-          <div className="bg-white/40 backdrop-blur-md p-10 md:p-14 rounded-[2.5rem] border border-black/5 shadow-2xl shadow-brand-teal/5">
-            <h3 className="text-2xl font-bold mb-8 tracking-tighter">Inquiry Form.</h3>
+          {/* Right Side: Dark Glass Form Card */}
+          <div className="lg:col-span-7 bg-[#051314]/80 backdrop-blur-2xl p-8 md:p-14 rounded-3xl border border-white/[0.1] shadow-2xl">
+            <div className="mb-8 border-b border-white/[0.08] pb-6">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#C87D4F] block mb-1">
+                PROJECT SCOPE INTAKE
+              </span>
+              <h3 className="text-3xl font-heading font-extrabold text-[#F8F6F3]">Technical Specification Form</h3>
+            </div>
             <ContactForm />
           </div>
 

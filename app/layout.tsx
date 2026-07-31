@@ -3,6 +3,8 @@ import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SmoothScroll from "@/components/animations/SmoothScroll";
+import CustomCursor from "@/components/ui/CustomCursor";
 
 const spaceGrotesk = Space_Grotesk({ 
   subsets: ["latin"],
@@ -13,49 +15,13 @@ const spaceGrotesk = Space_Grotesk({
 const inter = Inter({ 
   subsets: ["latin"],
   variable: "--font-body",
-  weight: ['400', '500']
+  weight: ['400', '500', '600', '700']
 });
 
-// SEO Metadata Configuration
 export const metadata: Metadata = {
-  title: {
-    default: "FASTEQ — Engineering the Future",
-    template: "%s | FASTEQ Studio"
-  },
-  description: "FASTEQ is a technical design studio architecting luxury digital products, high-speed web ecosystems, and autonomous AI systems.",
-  keywords: ["Digital Studio", "AI Engineering", "Next.js Development", "UI/UX Design", "Custom Software", "FASTEQ"],
-  authors: [{ name: "FASTEQ Team" }],
-  creator: "FASTEQ Studio",
-  
-  // Open Graph (WhatsApp, Facebook, LinkedIn)
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://fasteq.com", // Apni domain yahan likhen
-    siteName: "FASTEQ",
-    title: "FASTEQ — Engineering the Future",
-    description: "Technical design studio for visionary enterprises.",
-    images: [
-      {
-        url: "/og-image.jpg", // public folder mein ye image honi chahiye
-        width: 1200,
-        height: 630,
-        alt: "FASTEQ Studio"
-      }
-    ]
-  },
-
-  // Twitter (X) Card
-  twitter: {
-    card: "summary_large_image",
-    title: "FASTEQ Studio",
-    description: "Architecting Digital Legacies.",
-    images: ["/og-image.jpg"],
-  },
-
-  icons: {
-    icon: "/favicon.ico",
-  }
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
+  title: "FASTEQ — Global Engineering & AI Architecture Studio",
+  description: "Award-winning studio engineering high-fidelity web ecosystems, AI infrastructure, and luxury digital products.",
 };
 
 export const viewport: Viewport = {
@@ -64,14 +30,17 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body 
-        className={`${spaceGrotesk.variable} ${inter.variable} antialiased font-body bg-[#F8F6F3] text-[#0D2E2F]`}
+        className={`${spaceGrotesk.variable} ${inter.variable} antialiased font-body bg-[#F8F6F3] text-[#0D2E2F] selection:bg-brand-copper selection:text-white`}
         suppressHydrationWarning
       >
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <CustomCursor />
+        <SmoothScroll>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

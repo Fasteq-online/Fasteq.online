@@ -3,8 +3,10 @@
 @theme {
   --color-brand-teal: #0D2E2F;
   --color-brand-copper: #C87D4F;
-  --color-brand-light: #F8F6F3;
-
+  --color-brand-copper-hover: #E08E5A;
+  --color-brand-light: #0D2627;
+  --color-brand-dark: #051314;
+  --color-brand-[#07191A]: #07191A;
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
 }
@@ -12,37 +14,110 @@
 @layer base {
   h1, h2, h3, h4 {
     font-family: var(--font-heading);
-    letter-spacing: -0.05em;
+    letter-spacing: -0.04em;
   }
   body {
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
-    background-color: var(--color-brand-light);
-    color: var(--color-brand-teal);
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #07191A;
+    color: #F8F6F3;
     position: relative;
     overflow-x: hidden;
   }
-
-  /* --- THE TECHNICAL GRID (MATCHING PIC 2) --- */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background-size: 40px 40px;
-    background-image: 
-      linear-gradient(to right, rgba(13, 46, 47, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(13, 46, 47, 0.06) 1px, transparent 1px);
-    /* This makes the grid fade out toward the edges slightly for a premium feel */
-    mask-image: radial-gradient(circle at center, black 40%, transparent 95%);
-  }
 }
 
-@keyframes blurReveal {
-  from { opacity: 0; filter: blur(15px); transform: translateY(30px); }
-  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+/* Custom Luxury Dark Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #07191A;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(200, 125, 79, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C87D4F;
 }
 
-.animate-blur-reveal {
-  animation: blurReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Noise Texture Overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Deep Dark Interactive Grid Background */
+.grid-container {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: 60px 60px;
+  background-image: 
+    linear-gradient(to right, rgba(200, 125, 79, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(200, 125, 79, 0.05) 1px, transparent 1px);
+  mask-image: radial-gradient(
+    circle 450px at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+    black 0%, 
+    rgba(0, 0, 0, 0.2) 65%,
+    transparent 100%
+  );
+  transition: mask-image 0.15s ease-out;
+}
+
+/* Custom Glass Utilities */
+.glass-card {
+  background: rgba(13, 46, 47, 0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-dark {
+  background: rgba(5, 19, 20, 0.85);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(200, 125, 79, 0.2);
+}
+
+.glass-pill {
+  background: rgba(13, 46, 47, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copper-border-glow {
+  border: 1px solid rgba(200, 125, 79, 0.3);
+  box-shadow: 0 0 30px -5px rgba(200, 125, 79, 0.15);
+}
+
+.glow-copper {
+  box-shadow: 0 10px 40px -10px rgba(200, 125, 79, 0.4);
+}
+
+.glow-teal {
+  box-shadow: 0 10px 50px -10px rgba(13, 46, 47, 0.6);
+}
+
+/* Marquee Keyframes */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
