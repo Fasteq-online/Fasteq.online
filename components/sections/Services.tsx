@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { client } from "@/sanity/lib/client";
+import { servicesQuery } from "@/sanity/lib/queries";
 import { SERVICES } from "@/constants";
 
 export default function Services() {
@@ -11,7 +12,7 @@ export default function Services() {
 
   useEffect(() => {
     client
-      .fetch(`*[_type == "service"] { title, description, icon }`)
+      .fetch(servicesQuery)
       .then((data) => {
         setServices(data && data.length > 0 ? data : SERVICES);
       })
@@ -78,7 +79,7 @@ export default function Services() {
 
               {/* Spec Index */}
               <div className="absolute top-6 right-7 text-[10px] font-mono font-bold tracking-widest text-[#F8F6F3]/15 group-hover:text-[#C87D4F]/50 transition-colors">
-                SPEC.0{i + 1}
+                SPEC.{(s.order ?? (i + 1)) < 10 ? `0${s.order ?? (i + 1)}` : s.order ?? (i + 1)}
               </div>
 
               <div>

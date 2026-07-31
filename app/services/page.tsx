@@ -51,7 +51,7 @@ export default async function ServicesPage() {
               <div className="lg:w-1/3 p-10 md:p-12 bg-gradient-to-br from-[#0D2E2F] to-[#051314] text-white flex flex-col justify-between relative overflow-hidden border-b lg:border-b-0 lg:border-r border-white/[0.08]">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-[#C87D4F]/10 rounded-full blur-2xl pointer-events-none" />
                 <span className="font-mono text-[11px] uppercase tracking-[0.3em] font-bold text-[#C87D4F]">
-                  {s.category || `DOMAINS / 0${i + 1}`}
+                  {s.category || `DOMAINS / ${(s.order ?? (i + 1)) < 10 ? `0${s.order ?? (i + 1)}` : s.order ?? (i + 1)}`}
                 </span>
                 <h3 className="text-3xl md:text-4xl font-heading font-extrabold mt-16 leading-tight text-[#F8F6F3] group-hover:text-[#C87D4F] transition-colors">
                   {s.title}

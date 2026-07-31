@@ -1,6 +1,6 @@
 import { groq } from "next-sanity";
 
-export const servicesQuery = groq`*[_type == "service"] { title, description, icon }`;
+export const servicesQuery = groq`*[_type == "service"] | order(order asc) { title, description, icon, order }`;
 
 export const projectsQuery = groq`*[_type == "project"] | order(year desc) {
   title, category, year, "imageUrl": mainImage.asset->url
@@ -26,8 +26,8 @@ export const pricingQuery = groq`*[_type == "pricing"] | order(order asc)`;
 export const clientsQuery = groq`*[_type == "client"] { name }`;
 
 // Detailed Services (Full Data)
-export const detailedServicesQuery = groq`*[_type == "service"] | order(_createdAt asc) {
-  title, description, icon, category, features, color
+export const detailedServicesQuery = groq`*[_type == "service"] | order(order asc) {
+  title, description, icon, category, features, color, order
 }`;
 export const contactQuery = groq`*[_type == "contactInfo"][0] {
   email, location, phone, instagram, linkedin
