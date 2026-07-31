@@ -10,7 +10,8 @@ export default function CustomCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  const springConfig = { damping: 28, stiffness: 350 };
+  // Smooth physics spring for organic movement
+  const springConfig = { damping: 24, stiffness: 300 };
   const smoothX = useSpring(cursorX, springConfig);
   const smoothY = useSpring(cursorY, springConfig);
 
@@ -64,7 +65,7 @@ export default function CustomCursor() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[99999] overflow-hidden hidden md:block">
-      {/* Outer Follower Ring */}
+      {/* Outer Glass Ring — Spring Zoom Lens Effect */}
       <motion.div
         style={{
           x: smoothX,
@@ -73,15 +74,18 @@ export default function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovered ? 2.2 : 1,
-          borderColor: isHovered ? "rgba(200, 125, 79, 0.8)" : "rgba(13, 46, 47, 0.3)",
-          backgroundColor: isHovered ? "rgba(200, 125, 79, 0.08)" : "rgba(255, 255, 255, 0)",
+          scale: isHovered ? 2.5 : 1,
+          borderColor: isHovered ? "rgba(200, 125, 79, 0.9)" : "rgba(255, 255, 255, 0.25)",
+          boxShadow: isHovered
+            ? "0 0 25px rgba(200, 125, 79, 0.35), inset 0 0 15px rgba(200, 125, 79, 0.15)"
+            : "0 0 10px rgba(0, 0, 0, 0.2)",
+          backgroundColor: isHovered ? "rgba(200, 125, 79, 0.04)" : "transparent",
         }}
-        transition={{ duration: 0.2 }}
-        className="w-10 h-10 rounded-full border border-brand-teal/30 fixed top-0 left-0 backdrop-blur-[1px]"
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+        className="w-10 h-10 rounded-full border-2 fixed top-0 left-0"
       />
 
-      {/* Inner Precision Dot */}
+      {/* Inner Precision Core */}
       <motion.div
         style={{
           x: cursorX,
@@ -90,11 +94,12 @@ export default function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovered ? 0.5 : 1,
-          backgroundColor: isHovered ? "#C87D4F" : "#0D2E2F",
+          scale: isHovered ? 1.4 : 1,
+          backgroundColor: isHovered ? "#E08E5A" : "#C87D4F",
+          boxShadow: isHovered ? "0 0 12px #C87D4F" : "none",
         }}
         transition={{ duration: 0.15 }}
-        className="w-2.5 h-2.5 rounded-full fixed top-0 left-0 shadow-sm"
+        className="w-2 h-2 rounded-full fixed top-0 left-0"
       />
     </div>
   );
