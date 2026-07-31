@@ -10,8 +10,8 @@ export default function CustomCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  // Smooth physics spring for organic movement
-  const springConfig = { damping: 24, stiffness: 300 };
+  // Fast, responsive spring physics for instant feel
+  const springConfig = { damping: 28, stiffness: 450 };
   const smoothX = useSpring(cursorX, springConfig);
   const smoothY = useSpring(cursorY, springConfig);
 
@@ -20,10 +20,15 @@ export default function CustomCursor() {
       return;
     }
 
+    let rAF: number;
+
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-      if (!isVisible) setIsVisible(true);
+      cancelAnimationFrame(rAF);
+      rAF = requestAnimationFrame(() => {
+        cursorX.set(e.clientX);
+        cursorY.set(e.clientY);
+        if (!isVisible) setIsVisible(true);
+      });
     };
 
     const handleMouseLeave = () => setIsVisible(false);
@@ -48,12 +53,13 @@ export default function CustomCursor() {
       }
     };
 
-    window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mouseover", handleHoverStart);
+    window.addEventListener("mousemove", moveCursor, { passive: true });
+    window.addEventListener("mouseover", handleHoverStart, { passive: true });
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
+      cancelAnimationFrame(rAF);
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("mouseover", handleHoverStart);
       document.removeEventListener("mouseleave", handleMouseLeave);
@@ -65,7 +71,7 @@ export default function CustomCursor() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[99999] overflow-hidden hidden md:block">
-      {/* Outer Glass Ring — Spring Zoom Lens Effect */}
+      {/* Outer Glass Lens Ring */}
       <motion.div
         style={{
           x: smoothX,
@@ -74,14 +80,14 @@ export default function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovered ? 2.5 : 1,
-          borderColor: isHovered ? "rgba(200, 125, 79, 0.9)" : "rgba(255, 255, 255, 0.25)",
+          scale: isHovered ? 2.6 : 1,
+          borderColor: isHovered ? "rgba(200, 125, 79, 0.95)" : "rgba(255, 255, 255, 0.25)",
           boxShadow: isHovered
-            ? "0 0 25px rgba(200, 125, 79, 0.35), inset 0 0 15px rgba(200, 125, 79, 0.15)"
-            : "0 0 10px rgba(0, 0, 0, 0.2)",
-          backgroundColor: isHovered ? "rgba(200, 125, 79, 0.04)" : "transparent",
+            ? "0 0 25px rgba(200, 125, 79, 0.4), inset 0 0 15px rgba(200, 125, 79, 0.2)"
+            : "0 0 8px rgba(0, 0, 0, 0.2)",
+          backgroundColor: isHovered ? "rgba(200, 125, 79, 0.05)" : "transparent",
         }}
-        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+        transition={{ type: "spring", stiffness: 450, damping: 28 }}
         className="w-10 h-10 rounded-full border-2 fixed top-0 left-0"
       />
 
@@ -94,11 +100,11 @@ export default function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovered ? 1.4 : 1,
+          scale: isHovered ? 1.5 : 1,
           backgroundColor: isHovered ? "#E08E5A" : "#C87D4F",
-          boxShadow: isHovered ? "0 0 12px #C87D4F" : "none",
+          boxShadow: isHovered ? "0 0 14px #C87D4F" : "none",
         }}
-        transition={{ duration: 0.15 }}
+        transition={{ duration: 0.12 }}
         className="w-2 h-2 rounded-full fixed top-0 left-0"
       />
     </div>

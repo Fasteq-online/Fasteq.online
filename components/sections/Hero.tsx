@@ -17,18 +17,25 @@ export default function Hero() {
 
   useEffect(() => {
     setIsMounted(true);
+    let rAF: number;
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        containerRef.current.style.setProperty("--mouse-x", `${clientX - rect.left}px`);
-        containerRef.current.style.setProperty("--mouse-y", `${clientY - rect.top}px`);
-      }
-      mouseX.set(clientX);
-      mouseY.set(clientY);
+      cancelAnimationFrame(rAF);
+      rAF = requestAnimationFrame(() => {
+        if (containerRef.current) {
+          const rect = containerRef.current.getBoundingClientRect();
+          containerRef.current.style.setProperty("--mouse-x", `${clientX - rect.left}px`);
+          containerRef.current.style.setProperty("--mouse-y", `${clientY - rect.top}px`);
+        }
+        mouseX.set(clientX);
+        mouseY.set(clientY);
+      });
     };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => {
+      cancelAnimationFrame(rAF);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, [mouseX, mouseY]);
 
   const transformX = useTransform(springX, (val) => val - 500);
