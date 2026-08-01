@@ -46,7 +46,7 @@ export default async function AboutPage() {
           </p>
         </div>
 
-        {/* Team Grid */}
+        {/* Team Grid — 3 top row (CEO center), 2 bottom row */}
         <div className="mb-24">
           <div className="flex justify-between items-end mb-12 border-b border-white/[0.08] pb-6">
             <div>
@@ -57,34 +57,122 @@ export default async function AboutPage() {
               EXPERT NETWORK
             </span>
           </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {displayTeam.map((member: any, i: number) => (
-              <div key={i} className="group">
-                <div className="aspect-[3/4] rounded-2xl bg-[#051314] border border-white/[0.08] group-hover:border-[#C87D4F]/40 overflow-hidden mb-4 shadow-xl transition-all duration-500 relative">
-                  {member.imageUrl ? (
-                    <Image 
-                      src={member.imageUrl} 
-                      alt={member.name} 
-                      fill 
-                      sizes="(max-width: 768px) 50vw, 20vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105" 
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#0D2E2F] to-[#051314] p-5 flex flex-col justify-between text-white">
-                      <span className="text-[10px] font-mono text-[#C87D4F] font-bold uppercase tracking-widest">0{i + 1}</span>
-                      <div>
-                        <span className="text-xs font-heading font-extrabold text-[#F8F6F3] block">{member.name}</span>
+
+          {/* Top Row — 3 members, CEO in center */}
+          {(() => {
+            const topRow = displayTeam.slice(0, 3);
+            const bottomRow = displayTeam.slice(3, 5);
+            return (
+              <>
+                <div className="flex justify-center items-end gap-6 mb-6">
+                  {topRow.map((member: any, i: number) => {
+                    const isCEO = member.isCEO || i === 1;
+                    return (
+                      <div
+                        key={i}
+                        className={`group flex-1 max-w-[260px] ${isCEO ? "max-w-[300px]" : ""}`}
+                      >
+                        <div
+                          className={`rounded-2xl bg-[#051314] border overflow-hidden mb-4 shadow-xl transition-all duration-500 relative
+                            ${isCEO
+                              ? "aspect-[3/4] border-[#C87D4F]/35 shadow-[#C87D4F]/10 scale-105"
+                              : "aspect-[3/4] border-white/[0.08] group-hover:border-[#C87D4F]/40"
+                            }`}
+                        >
+                          {member.imageUrl ? (
+                            <Image
+                              src={member.imageUrl}
+                              alt={member.name}
+                              fill
+                              sizes="(max-width: 768px) 50vw, 25vw"
+                              className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div
+                              className="absolute inset-0 flex flex-col justify-between p-5 text-white"
+                              style={{
+                                background: isCEO
+                                  ? "linear-gradient(145deg, #1a3e40, #0D2E2F, #051314)"
+                                  : "linear-gradient(145deg, #0D2E2F, #051314)",
+                              }}
+                            >
+                              {/* Grid overlay */}
+                              <div
+                                className="absolute inset-0 opacity-20"
+                                style={{
+                                  backgroundImage:
+                                    "linear-gradient(rgba(200,125,79,0.15) 1px, transparent 1px), linear-gradient(to right, rgba(200,125,79,0.15) 1px, transparent 1px)",
+                                  backgroundSize: "30px 30px",
+                                }}
+                              />
+                              <span className="text-[10px] font-mono text-[#C87D4F] font-bold uppercase tracking-widest relative z-10">
+                                0{i + 1}
+                              </span>
+                              <div className="relative z-10">
+                                {isCEO && (
+                                  <span className="inline-block text-[9px] font-mono font-bold uppercase tracking-[0.25em] text-[#C87D4F] bg-[#C87D4F]/10 border border-[#C87D4F]/25 px-2.5 py-1 rounded-full mb-3">
+                                    EXECUTIVE LEAD
+                                  </span>
+                                )}
+                                <span className={`font-heading font-extrabold text-[#F8F6F3] block ${isCEO ? "text-base" : "text-xs"}`}>
+                                  {member.name}
+                                </span>
+                              </div>
+                            </div>
+                          )}
+                          {/* Copper glow frame for CEO */}
+                          {isCEO && (
+                            <div className="absolute inset-0 rounded-2xl pointer-events-none"
+                              style={{ boxShadow: "inset 0 0 30px rgba(200,125,79,0.06)" }}
+                            />
+                          )}
+                          <div className="absolute inset-0 bg-[#07191A]/10 group-hover:bg-transparent transition-colors duration-500" />
+                        </div>
+                        <h4 className={`font-heading font-extrabold text-[#F8F6F3] group-hover:text-[#C87D4F] transition-colors ${isCEO ? "text-lg" : "text-base"}`}>
+                          {member.name}
+                        </h4>
+                        <p className="text-[10px] font-mono text-[#C87D4F] uppercase tracking-wider mt-1 font-bold">{member.role}</p>
+                        {isCEO && (
+                          <p className="text-xs text-[#F8F6F3]/40 mt-2 leading-relaxed">{member.bio}</p>
+                        )}
                       </div>
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-[#07191A]/10 group-hover:bg-transparent transition-colors duration-500" />
+                    );
+                  })}
                 </div>
-                <h4 className="font-heading font-extrabold text-[#F8F6F3] text-base group-hover:text-[#C87D4F] transition-colors">{member.name}</h4>
-                <p className="text-[10px] font-mono text-[#C87D4F] uppercase tracking-wider mt-1 font-bold">{member.role}</p>
-              </div>
-            ))}
-          </div>
+
+                {/* Bottom Row — 2 members, centered */}
+                {bottomRow.length > 0 && (
+                  <div className="flex justify-center gap-6">
+                    {bottomRow.map((member: any, i: number) => (
+                      <div key={i} className="group flex-1 max-w-[260px]">
+                        <div className="aspect-[3/4] rounded-2xl bg-[#051314] border border-white/[0.08] group-hover:border-[#C87D4F]/40 overflow-hidden mb-4 shadow-xl transition-all duration-500 relative">
+                          {member.imageUrl ? (
+                            <Image
+                              src={member.imageUrl}
+                              alt={member.name}
+                              fill
+                              sizes="(max-width: 768px) 50vw, 20vw"
+                              className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="absolute inset-0 bg-gradient-to-br from-[#0D2E2F] to-[#051314] p-5 flex flex-col justify-between text-white">
+                              <span className="text-[10px] font-mono text-[#C87D4F] font-bold uppercase tracking-widest">0{i + 4}</span>
+                              <div>
+                                <span className="text-xs font-heading font-extrabold text-[#F8F6F3] block">{member.name}</span>
+                              </div>
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-[#07191A]/10 group-hover:bg-transparent transition-colors duration-500" />
+                        </div>
+                        <h4 className="font-heading font-extrabold text-[#F8F6F3] text-base group-hover:text-[#C87D4F] transition-colors">{member.name}</h4>
+                        <p className="text-[10px] font-mono text-[#C87D4F] uppercase tracking-wider mt-1 font-bold">{member.role}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            );
+          })()}
         </div>
 
         {/* Back Link */}
