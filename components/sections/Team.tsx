@@ -8,7 +8,7 @@ import { TEAM, COMPANY_VISION } from "@/constants";
 export default async function Team() {
   let ceo: any = null;
   try {
-    ceo = await client.fetch(ceoQuery, {}, { next: { revalidate: 10 } });
+    ceo = await client.fetch(ceoQuery, {}, { next: { revalidate: 0 } });
   } catch (error) {
     console.error("Sanity CEO query error:", error);
   }

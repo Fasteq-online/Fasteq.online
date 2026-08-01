@@ -8,7 +8,7 @@ import { PROJECTS } from "@/constants";
 export default async function Portfolio() {
   let projects: any[] = [];
   try {
-    projects = await client.fetch(featuredProjectsQuery, {}, { next: { revalidate: 10 } });
+    projects = await client.fetch(featuredProjectsQuery, {}, { next: { revalidate: 0 } });
   } catch (error) {
     console.error("Sanity projects error:", error);
   }

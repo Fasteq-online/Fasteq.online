@@ -23,7 +23,7 @@ const teamQuery = `*[_type == "team"] {
 export default async function AboutPage() {
   let team: any[] = [];
   try {
-    team = await client.fetch(teamQuery, {}, { next: { revalidate: 10 } });
+    team = await client.fetch(teamQuery, {}, { next: { revalidate: 0 } });
   } catch (error) {
     console.error("Sanity team query error:", error);
   }

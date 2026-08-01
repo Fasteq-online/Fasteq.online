@@ -5,7 +5,7 @@ import { statsQuery } from "@/sanity/lib/queries";
 export default async function Stats() {
   let stats: any[] = [];
   try {
-    stats = await client.fetch(statsQuery, {}, { next: { revalidate: 10 } });
+    stats = await client.fetch(statsQuery, {}, { next: { revalidate: 0 } });
   } catch (error) {
     console.error("Sanity stats error:", error);
   }

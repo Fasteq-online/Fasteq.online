@@ -6,7 +6,7 @@ import { CLIENT_LOGOS } from "@/constants";
 export default async function Clients() {
   let clients: any[] = [];
   try {
-    clients = await client.fetch(clientsQuery, {}, { next: { revalidate: 10 } });
+    clients = await client.fetch(clientsQuery, {}, { next: { revalidate: 0 } });
   } catch (error) {
     console.error("Sanity clients query error:", error);
   }

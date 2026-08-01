@@ -8,7 +8,7 @@ import { DETAILED_PROJECTS } from "@/constants";
 export default async function PortfolioPage() {
   let projects: any[] = [];
   try {
-    projects = await client.fetch(detailedProjectsQuery, {}, { next: { revalidate: 10 } });
+    projects = await client.fetch(detailedProjectsQuery, {}, { next: { revalidate: 0 } });
   } catch (error) {
     console.error("Sanity detailed projects error:", error);
   }

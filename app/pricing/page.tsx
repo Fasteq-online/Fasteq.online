@@ -7,7 +7,7 @@ import { PRICING_PLANS } from "@/constants";
 export default async function PricingPage() {
   let plans: any[] = [];
   try {
-    plans = await client.fetch(pricingQuery, {}, { next: { revalidate: 10 } });
+    plans = await client.fetch(pricingQuery, {}, { next: { revalidate: 0 } });
   } catch (error) {
     console.error("Sanity pricing error:", error);
   }

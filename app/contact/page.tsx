@@ -6,7 +6,7 @@ import { contactQuery } from "@/sanity/lib/queries";
 export default async function ContactPage() {
   let info: any = null;
   try {
-    info = await client.fetch(contactQuery, {}, { next: { revalidate: 10 } });
+    info = await client.fetch(contactQuery, {}, { next: { revalidate: 0 } });
   } catch (error) {
     console.error("Sanity contact info error:", error);
   }
