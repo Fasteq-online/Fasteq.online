@@ -1,25 +1,18 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { client } from "@/sanity/lib/client";
 import { servicesQuery } from "@/sanity/lib/queries";
 import { SERVICES } from "@/constants";
 
-export default function Services() {
-  const [services, setServices] = useState<any[]>([]);
+export default async function Services() {
+  let services: any[] = [];
+  try {
+    services = await client.fetch(servicesQuery, {}, { next: { revalidate: 0 } });
+  } catch (err) {
+    console.error("Sanity fetch error in Services component:", err);
+  }
 
-  useEffect(() => {
-    client
-      .fetch(servicesQuery)
-      .then((data) => {
-        setServices(data && data.length > 0 ? data : SERVICES);
-      })
-      .catch(() => setServices(SERVICES));
-  }, []);
-
-  const displayServices = services.length > 0 ? services : SERVICES;
+  const displayServices = services && services.length > 0 ? services : SERVICES;
 
   return (
     <section
@@ -34,12 +27,7 @@ export default function Services() {
 
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
+          <div>
             <span className="text-[10px] font-mono font-bold tracking-[0.3em] text-[#C87D4F] uppercase block mb-4">
               CAPABILITIES & EXPERTISE
             </span>
@@ -47,28 +35,18 @@ export default function Services() {
               Engineered for <br />
               <span className="text-[#C87D4F]">Supreme Performance.</span>
             </h2>
-          </motion.div>
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-[#F8F6F3]/40 text-sm md:text-base max-w-md leading-relaxed"
-          >
+          <p className="text-[#F8F6F3]/40 text-sm md:text-base max-w-md leading-relaxed">
             We merge software architecture, high-frequency user interfaces, and artificial intelligence into cohesive digital products.
-          </motion.p>
+          </p>
         </div>
 
         {/* Service Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {displayServices.map((s: any, i: number) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.12, duration: 0.7 }}
               className="group relative p-8 md:p-9 rounded-3xl border border-white/[0.07] hover:border-[#C87D4F]/35 transition-all duration-500 flex flex-col justify-between cursor-default overflow-hidden"
               style={{ background: "rgba(13,46,47,0.3)", backdropFilter: "blur(12px)" }}
             >
@@ -105,7 +83,7 @@ export default function Services() {
                 <span className="font-mono text-[10px] tracking-widest uppercase text-[#F8F6F3]/20 group-hover:text-[#C87D4F]/70 transition-colors">Explore</span>
                 <span className="text-[#F8F6F3]/20 group-hover:text-[#C87D4F] group-hover:translate-x-1 transition-all duration-300">→</span>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 

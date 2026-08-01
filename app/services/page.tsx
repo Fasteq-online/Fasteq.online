@@ -7,7 +7,7 @@ import { DETAILED_SERVICES } from "@/constants";
 export default async function ServicesPage() {
   let services: any[] = [];
   try {
-    services = await client.fetch(detailedServicesQuery, {}, { next: { revalidate: 10 } });
+    services = await client.fetch(detailedServicesQuery, {}, { next: { revalidate: 0 } });
   } catch (error) {
     console.error("Sanity detailed services error:", error);
   }
