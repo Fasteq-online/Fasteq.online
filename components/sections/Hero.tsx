@@ -41,6 +41,9 @@ export default function Hero() {
   const transformX = useTransform(springX, (val) => val - 500);
   const transformY = useTransform(springY, (val) => val - 500);
 
+  const tealTransformX = useTransform(springX, (val) => val - 400);
+  const tealTransformY = useTransform(springY, (val) => val - 400);
+
   if (!mounted) {
     return <section className="relative min-h-screen bg-[#07191A]" />;
   }
@@ -48,7 +51,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden select-none"
+      className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 pt-28 md:pt-36 overflow-hidden select-none"
       style={{ background: "linear-gradient(135deg, #07191A 0%, #0D2E2F 50%, #051314 100%)" }}
     >
       {/* Particle Constellation Canvas */}
@@ -57,12 +60,35 @@ export default function Hero() {
       {/* Interactive Copper Grid */}
       <div className="grid-container" />
 
-      {/* Ambient Mouse-Tracking Glow */}
+      {/* Radial Spotlight — Copper Halo */}
       <motion.div
         style={{ x: transformX, y: transformY }}
-        className="fixed top-0 left-0 w-[600px] h-[600px] pointer-events-none -z-10 hidden md:block"
+        className="fixed top-0 left-0 w-[500px] h-[500px] pointer-events-none -z-10 hidden md:block"
       >
-        <div className="absolute inset-0 bg-[#C87D4F]/10 blur-[100px] rounded-full" />
+        <div
+          className="absolute inset-0 rounded-full opacity-60"
+          style={{
+            background:
+              "radial-gradient(circle at center, rgba(200,125,79,0.12) 0%, rgba(200,125,79,0.04) 40%, transparent 70%)",
+          }}
+        />
+      </motion.div>
+
+      {/* Radial Spotlight — Teal Ambient Wash */}
+      <motion.div
+        style={{
+          x: tealTransformX,
+          y: tealTransformY,
+        }}
+        className="fixed top-0 left-0 w-[800px] h-[800px] pointer-events-none -z-10 hidden md:block"
+      >
+        <div
+          className="absolute inset-0 rounded-full opacity-40"
+          style={{
+            background:
+              "radial-gradient(circle at center, rgba(78,168,168,0.08) 0%, transparent 60%)",
+          }}
+        />
       </motion.div>
 
       {/* Static Bottom-Left Glow */}
