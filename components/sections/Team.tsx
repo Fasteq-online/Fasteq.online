@@ -14,8 +14,8 @@ export default async function Team() {
   }
 
   const ceoData = ceo || {
-    name: TEAM[0].name,
-    role: TEAM[0].role,
+    name: TEAM[1].name,
+    role: TEAM[1].role,
     bio: COMPANY_VISION.ceo_vision,
     imageUrl: null,
   };

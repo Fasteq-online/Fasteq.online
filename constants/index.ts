@@ -48,11 +48,11 @@ export const DETAILED_SERVICES = [
 ];
 
 export const TEAM = [
-  { name: "Hamid Mushtaq", role: "Co-Founder & CTO", bio: "Systems architect driving FASTEQ's technical vision and engineering excellence." },
-  { name: "Alex Sterling", role: "Founder & CEO", bio: "Visionary architect with 15+ years in digital engineering, bridging human intuition and AI.", isCEO: true },
-  { name: "Fatima Tuz Zahra", role: "Head of Design", bio: "Crafting premium digital experiences that merge luxury aesthetics with intuitive UX." },
-  { name: "Sarah Chen", role: "Head of AI", bio: "Leading our LLM and automation research division." },
-  { name: "Marcus Vane", role: "Lead Developer", bio: "Expert in scalable Next.js and cloud architectures." },
+  { name: "Fatima Tuz Zahra", role: "Visual Content & Social Media Manager", bio: "Crafting premium digital experiences that merge luxury aesthetics with intuitive UX." },
+  { name: "Anas Ramzan", role: "Founder & CEO", bio: "Visionary founder driving FASTEQ's mission to bridge human intuition and machine precision.", isCEO: true },
+  { name: "Hamid Mushtaq", role: "UI/UX Designer & WordPress Developer", bio: "Systems architect driving FASTEQ's technical vision and engineering excellence." },
+  { name: "Muhammad Saim", role: "Senior Full Stack Developer", bio: "Specializing in full-stack web development with expertise in building secure, scalable, and high-performance applications using modern technologies and best development practices." },
+  { name: "Umais Hafeez", role: "Business & Digital Marketing Strategist", bio: "Expert in scalable digital marketing strategies and business growth." },
 ];
 
 export const PROJECTS = [

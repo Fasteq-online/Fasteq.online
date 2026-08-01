@@ -4,12 +4,21 @@ import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { TEAM, COMPANY_VISION } from "@/constants";
 
-const teamQuery = `*[_type == "team"] | order(isCEO desc) {
+const teamQuery = `*[_type == "team"] {
   name,
   role,
   bio,
+  isCEO,
   "imageUrl": image.asset->url
-}`;
+} | order(
+  select(
+    name == "Fatima Tuz Zahra" => 0,
+    isCEO == true => 1,
+    name == "Hamid Mushtaq" => 2,
+    name == "Muhammad Saim" => 3,
+    4
+  ) asc
+)`;
 
 export default async function AboutPage() {
   let team: any[] = [];
