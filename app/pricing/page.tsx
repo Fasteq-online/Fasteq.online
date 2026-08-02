@@ -1,8 +1,100 @@
+import type { Metadata } from "next";
 import React from "react";
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { pricingQuery } from "@/sanity/lib/queries";
 import { PRICING_PLANS } from "@/constants";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://fasteq.online';
+
+export const metadata: Metadata = {
+  title: "Pricing — Transparent Engineering Investment Plans | FASTEQ",
+  description:
+    "Modular engineering packages from FASTEQ: Starter ($2,500), Professional ($7,500), and Enterprise (custom). Designed for stealth launches, enterprise expansions, and custom digital systems.",
+  keywords: [
+    "web development pricing",
+    "software engineering packages",
+    "Next.js development cost",
+    "AI engineering pricing",
+    "enterprise software pricing",
+    "web agency pricing plans",
+    "FASTEQ pricing",
+  ],
+  alternates: {
+    canonical: `${BASE_URL}/pricing`,
+  },
+  openGraph: {
+    title: "Pricing — Transparent Engineering Investment Plans | FASTEQ",
+    description:
+      "Modular engineering packages for early-stage launches, enterprise expansions, and custom digital systems.",
+    url: `${BASE_URL}/pricing`,
+    type: "website",
+  },
+  twitter: {
+    title: "Pricing — Transparent Engineering Investment Plans | FASTEQ",
+    description:
+      "Modular engineering packages: Starter, Professional, and Enterprise tiers.",
+  },
+};
+
+const pricingSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${BASE_URL}/pricing#webpage`,
+  url: `${BASE_URL}/pricing`,
+  name: "FASTEQ Pricing Plans",
+  description: "Transparent engineering investment plans for software development, AI, and design.",
+  isPartOf: { "@id": `${BASE_URL}/#website` },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Pricing", item: `${BASE_URL}/pricing` },
+    ],
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@type": "Offer",
+          name: "Starter Plan",
+          description: "High-end landing page. Single Page Next.js with Tailwind v4.",
+          price: "2500",
+          priceCurrency: "USD",
+          seller: { "@id": `${BASE_URL}/#organization` },
+          url: `${BASE_URL}/contact`,
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        item: {
+          "@type": "Offer",
+          name: "Professional Plan",
+          description: "Full digital ecosystems. Multi-page Web App with Sanity CMS.",
+          price: "7500",
+          priceCurrency: "USD",
+          seller: { "@id": `${BASE_URL}/#organization` },
+          url: `${BASE_URL}/contact`,
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        item: {
+          "@type": "Offer",
+          name: "Enterprise Plan",
+          description: "Large scale systems with cloud architecture and dedicated support.",
+          seller: { "@id": `${BASE_URL}/#organization` },
+          url: `${BASE_URL}/contact`,
+        },
+      },
+    ],
+  },
+};
 
 export default async function PricingPage() {
   let plans: any[] = [];
@@ -15,7 +107,15 @@ export default async function PricingPage() {
   const displayPlans = plans && plans.length > 0 ? plans : PRICING_PLANS;
 
   return (
-    <main className="pt-40 md:pt-48 pb-28 bg-[#07191A] text-white min-h-screen relative overflow-hidden">
+    <main
+      aria-label="FASTEQ Pricing Plans"
+      className="pt-40 md:pt-48 pb-28 bg-[#07191A] text-white min-h-screen relative overflow-hidden"
+    >
+      {/* JSON-LD: Pricing WebPage */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }}
+      />
       {/* Background Glows */}
       <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-[#C87D4F]/6 rounded-full blur-[180px] pointer-events-none" />
 

@@ -1,9 +1,62 @@
+import type { Metadata } from "next";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { detailedProjectsQuery } from "@/sanity/lib/queries";
 import { DETAILED_PROJECTS } from "@/constants";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://fasteq.online';
+
+export const metadata: Metadata = {
+  title: "Portfolio — Selected Works & Case Studies | FASTEQ",
+  description:
+    "A curated registry of software ecosystems engineered by FASTEQ for maximum performance, resilience, and conversion impact. Explore our case studies in Next.js, AI, Fintech, and luxury e-commerce.",
+  keywords: [
+    "FASTEQ portfolio",
+    "software engineering case studies",
+    "Next.js projects",
+    "AI engineering projects",
+    "web development portfolio",
+    "fintech app development",
+    "luxury e-commerce development",
+    "selected works",
+  ],
+  alternates: {
+    canonical: `${BASE_URL}/portfolio`,
+  },
+  openGraph: {
+    title: "Portfolio — Selected Works & Case Studies | FASTEQ",
+    description:
+      "A curated registry of software ecosystems engineered for maximum performance, resilience, and conversion impact.",
+    url: `${BASE_URL}/portfolio`,
+    type: "website",
+  },
+  twitter: {
+    title: "Portfolio — Selected Works & Case Studies | FASTEQ",
+    description:
+      "Curated case studies in Next.js, AI, Fintech, and luxury e-commerce engineering.",
+  },
+};
+
+const portfolioSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${BASE_URL}/portfolio#webpage`,
+  url: `${BASE_URL}/portfolio`,
+  name: "FASTEQ Portfolio — Selected Works",
+  description:
+    "A curated registry of software ecosystems engineered by FASTEQ for maximum performance, resilience, and conversion impact.",
+  isPartOf: { "@id": `${BASE_URL}/#website` },
+  about: { "@id": `${BASE_URL}/#organization` },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Portfolio", item: `${BASE_URL}/portfolio` },
+    ],
+  },
+};
 
 export default async function PortfolioPage() {
   let projects: any[] = [];
@@ -16,7 +69,15 @@ export default async function PortfolioPage() {
   const displayProjects = projects && projects.length > 0 ? projects : DETAILED_PROJECTS;
 
   return (
-    <main className="pt-40 md:pt-48 pb-28 bg-[#07191A] text-white min-h-screen relative overflow-hidden">
+    <main
+      aria-label="FASTEQ Portfolio"
+      className="pt-40 md:pt-48 pb-28 bg-[#07191A] text-white min-h-screen relative overflow-hidden"
+    >
+      {/* JSON-LD: CollectionPage */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioSchema) }}
+      />
       {/* Background Glows */}
       <div className="absolute top-1/3 left-0 w-[600px] h-[600px] bg-[#C87D4F]/6 rounded-full blur-[180px] pointer-events-none" />
 

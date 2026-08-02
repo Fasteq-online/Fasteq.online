@@ -65,14 +65,33 @@ const Footer = () => {
 
             {/* Socials */}
             <div className="flex gap-3 mt-6">
-              {["X", "LI", "GH"].map((s) => (
-                <button
-                  key={s}
-                  className="w-9 h-9 rounded-full border border-white/10 bg-white/[0.04] text-[10px] font-mono font-bold text-[#F8F6F3]/40 hover:text-[#C87D4F] hover:border-[#C87D4F]/40 transition-all"
+              <a
+                  href="https://www.facebook.com/share/1cH1FNT2Mu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow FASTEQ on Facebook"
+                  className="w-9 h-9 rounded-full border border-white/10 bg-white/[0.04] text-[10px] font-mono font-bold text-[#F8F6F3]/40 hover:text-[#C87D4F] hover:border-[#C87D4F]/40 transition-all flex items-center justify-center"
                 >
-                  {s}
-                </button>
-              ))}
+                  FB
+              </a>
+              <a
+                  href="https://www.linkedin.com/company/fasteq1/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow FASTEQ on LinkedIn"
+                  className="w-9 h-9 rounded-full border border-white/10 bg-white/[0.04] text-[10px] font-mono font-bold text-[#F8F6F3]/40 hover:text-[#C87D4F] hover:border-[#C87D4F]/40 transition-all flex items-center justify-center"
+                >
+                  LI
+              </a>
+              <a
+                href="https://github.com/fasteq"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow FASTEQ on GitHub"
+                className="w-9 h-9 rounded-full border border-white/10 bg-white/[0.04] text-[10px] font-mono font-bold text-[#F8F6F3]/40 hover:text-[#C87D4F] hover:border-[#C87D4F]/40 transition-all flex items-center justify-center"
+              >
+                GH
+              </a>
             </div>
           </div>
 
@@ -88,6 +107,15 @@ const Footer = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a href="https://www.instagram.com/fasteq_/?utm_source=ig_web_button_share_sheet" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-xs font-mono font-bold text-[#F8F6F3]/40 hover:text-[#C87D4F] transition-colors uppercase tracking-wider"
+                >
+                  INSTAGRAM
+                </a>
+              </li>
             </ul>
           </div>
 

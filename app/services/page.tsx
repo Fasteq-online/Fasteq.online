@@ -1,8 +1,97 @@
+import type { Metadata } from "next";
 import React from "react";
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { detailedServicesQuery } from "@/sanity/lib/queries";
 import { DETAILED_SERVICES } from "@/constants";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://fasteq.online';
+
+export const metadata: Metadata = {
+  title: "Services — Full Stack Engineering & AI Architectures",
+  description:
+    "Explore FASTEQ's full-stack service offerings: Next.js enterprise development, custom AI agents, luxury UI/UX strategy, and cloud infrastructure. End-to-end digital mastery.",
+  keywords: [
+    "Next.js enterprise development",
+    "custom AI agents",
+    "luxury UI UX design services",
+    "full stack web development",
+    "cloud infrastructure services",
+    "software engineering services",
+    "AI automation",
+    "web app development",
+  ],
+  alternates: {
+    canonical: `${BASE_URL}/services`,
+  },
+  openGraph: {
+    title: "Services — Full Stack Engineering & AI Architectures | FASTEQ",
+    description:
+      "From high-frequency cloud systems to luxury consumer interfaces and bespoke AI engines — FASTEQ delivers end-to-end digital mastery.",
+    url: `${BASE_URL}/services`,
+    type: "website",
+  },
+  twitter: {
+    title: "Services — Full Stack Engineering & AI Architectures | FASTEQ",
+    description:
+      "From high-frequency cloud systems to luxury consumer interfaces and bespoke AI engines.",
+  },
+};
+
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": `${BASE_URL}/services#servicelist`,
+  name: "FASTEQ Engineering Services",
+  description: "Full-stack engineering, AI, and design services offered by FASTEQ Studio.",
+  url: `${BASE_URL}/services`,
+  numberOfItems: 3,
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      item: {
+        "@type": "Service",
+        name: "Next.js Enterprise Systems",
+        description: "Scalable, high-performance web applications using the latest Next.js features including SSR, API infrastructure, and microservices architecture.",
+        provider: { "@id": `${BASE_URL}/#organization` },
+        serviceType: "Web Development",
+        areaServed: "Worldwide",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@type": "Service",
+        name: "Custom AI & Automation",
+        description: "Integrating LLMs and custom AI agents into business workflows, including GPT agents, workflow automation, and chatbot ecosystems.",
+        provider: { "@id": `${BASE_URL}/#organization` },
+        serviceType: "AI Engineering",
+        areaServed: "Worldwide",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      item: {
+        "@type": "Service",
+        name: "Luxury UI/UX Strategy",
+        description: "Aesthetic interfaces designed for premium branding and user conversion, including brand identity, interactive prototypes, and high-fidelity UI.",
+        provider: { "@id": `${BASE_URL}/#organization` },
+        serviceType: "UI/UX Design",
+        areaServed: "Worldwide",
+      },
+    },
+  ],
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Services", item: `${BASE_URL}/services` },
+    ],
+  },
+};
 
 export default async function ServicesPage() {
   let services: any[] = [];
@@ -15,7 +104,15 @@ export default async function ServicesPage() {
   const displayServices = services && services.length > 0 ? services : DETAILED_SERVICES;
 
   return (
-    <main className="pt-40 md:pt-48 pb-28 bg-[#07191A] text-white min-h-screen relative overflow-hidden">
+    <main
+      aria-label="FASTEQ Engineering Services"
+      className="pt-40 md:pt-48 pb-28 bg-[#07191A] text-white min-h-screen relative overflow-hidden"
+    >
+      {/* JSON-LD: Service ItemList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
+      />
       {/* Background Glows */}
       <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-[#C87D4F]/6 rounded-full blur-[180px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#0D2E2F]/60 rounded-full blur-[160px] pointer-events-none" />

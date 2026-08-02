@@ -1,7 +1,58 @@
+import type { Metadata } from "next";
 import React from "react";
 import ContactForm from "@/components/ui/ContactForm";
 import { client } from "@/sanity/lib/client";
 import { contactQuery } from "@/sanity/lib/queries";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://fasteq.online';
+
+export const metadata: Metadata = {
+  title: "Contact FASTEQ — Initiate Dialogue",
+  description:
+    "Start a conversation with FASTEQ Studio. We consult on enterprise product design, Next.js core systems, and custom AI agents. Reach out to schedule a technical consultation.",
+  keywords: [
+    "contact FASTEQ",
+    "hire software studio",
+    "web development consultation",
+    "AI engineering inquiry",
+    "enterprise product design contact",
+    "Next.js consultation",
+    "custom AI agent development",
+  ],
+  alternates: {
+    canonical: `${BASE_URL}/contact`,
+  },
+  openGraph: {
+    title: "Contact FASTEQ — Initiate Dialogue",
+    description:
+      "Start a conversation with FASTEQ. We consult on enterprise product design, Next.js systems, and custom AI agents.",
+    url: `${BASE_URL}/contact`,
+    type: "website",
+  },
+  twitter: {
+    title: "Contact FASTEQ — Initiate Dialogue",
+    description:
+      "Start a conversation with FASTEQ. We consult on enterprise product design, Next.js systems, and custom AI agents.",
+  },
+};
+
+const contactPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": `${BASE_URL}/contact#webpage`,
+  url: `${BASE_URL}/contact`,
+  name: "Contact FASTEQ Studio",
+  description:
+    "Reach out to FASTEQ for enterprise software, AI engineering, and luxury UI/UX design consultations.",
+  isPartOf: { "@id": `${BASE_URL}/#website` },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Contact", item: `${BASE_URL}/contact` },
+    ],
+  },
+};
 
 export default async function ContactPage() {
   let info: any = null;
@@ -12,7 +63,15 @@ export default async function ContactPage() {
   }
 
   return (
-    <main className="pt-40 md:pt-48 pb-28 min-h-screen bg-[#07191A] text-white relative overflow-hidden">
+    <main
+      aria-label="Contact FASTEQ Studio"
+      className="pt-40 md:pt-48 pb-28 min-h-screen bg-[#07191A] text-white relative overflow-hidden"
+    >
+      {/* JSON-LD: ContactPage */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }}
+      />
       {/* Glows */}
       <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-[#C87D4F]/6 rounded-full blur-[180px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#0D2E2F]/60 rounded-full blur-[160px] pointer-events-none" />

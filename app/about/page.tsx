@@ -1,8 +1,60 @@
+import type { Metadata } from "next";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { TEAM, COMPANY_VISION } from "@/constants";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://fasteq.online';
+
+export const metadata: Metadata = {
+  title: "About FASTEQ — Human Ingenuity. Machine Precision.",
+  description:
+    "Meet the FASTEQ team — a collective of multi-disciplinary engineers, AI researchers, and UX architects building the future of digital products. Discover our studio ethos and founding vision.",
+  keywords: [
+    "FASTEQ team",
+    "software studio team",
+    "AI researchers",
+    "UX architects",
+    "engineering studio",
+    "Anas Ramzan CEO",
+    "FASTEQ founders",
+  ],
+  alternates: {
+    canonical: `${BASE_URL}/about`,
+  },
+  openGraph: {
+    title: "About FASTEQ — Human Ingenuity. Machine Precision.",
+    description:
+      "Meet the FASTEQ collective — multi-disciplinary engineers, AI researchers, and UX architects.",
+    url: `${BASE_URL}/about`,
+    type: "website",
+  },
+  twitter: {
+    title: "About FASTEQ — Human Ingenuity. Machine Precision.",
+    description:
+      "Meet the FASTEQ collective — multi-disciplinary engineers, AI researchers, and UX architects.",
+  },
+};
+
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": `${BASE_URL}/about#webpage`,
+  url: `${BASE_URL}/about`,
+  name: "About FASTEQ",
+  description:
+    "Learn about FASTEQ Studio — a collective of engineers, AI researchers, and designers building premium digital products.",
+  isPartOf: { "@id": `${BASE_URL}/#website` },
+  about: { "@id": `${BASE_URL}/#organization` },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "About", item: `${BASE_URL}/about` },
+    ],
+  },
+};
 
 const teamQuery = `*[_type == "team"] {
   name,
@@ -31,7 +83,15 @@ export default async function AboutPage() {
   const displayTeam = team && team.length > 0 ? team : TEAM;
 
   return (
-    <main className="pt-40 md:pt-48 pb-28 bg-[#07191A] text-white min-h-screen relative overflow-hidden">
+    <main
+      aria-label="About FASTEQ Studio"
+      className="pt-40 md:pt-48 pb-28 bg-[#07191A] text-white min-h-screen relative overflow-hidden"
+    >
+      {/* JSON-LD: AboutPage */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
+      />
       {/* Ambient background glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#C87D4F]/5 rounded-full blur-[180px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#0D2E2F]/60 rounded-full blur-[160px] pointer-events-none" />
