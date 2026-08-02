@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s | FASTEQ",
   },
   description:
-    "Award-winning software & AI architecture studio engineering high-fidelity web ecosystems, custom AI agents, and luxury digital products for global enterprises.",
+    "All in one digital solutions & AI architecture studio engineering high-fidelity web ecosystems, custom AI agents, and luxury digital products for global enterprises.",
   keywords: [
     "FASTEQ",
     "software engineering studio",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     siteName: "FASTEQ",
     title: "FASTEQ — Global Engineering & AI Architecture Studio",
     description:
-      "Award-winning software & AI architecture studio engineering high-fidelity web ecosystems, custom AI agents, and luxury digital products.",
+      "All in one digital studio & AI architecture studio engineering high-fidelity web ecosystems, custom AI agents, and luxury digital products.",
     images: [
       {
         url: "/opengraph-image",
@@ -92,13 +92,13 @@ export const metadata: Metadata = {
     creator: "@fasteq",
     title: "FASTEQ — Global Engineering & AI Architecture Studio",
     description:
-      "Award-winning studio engineering high-fidelity web ecosystems, AI infrastructure, and luxury digital products.",
+      "All in one digital studio engineering high-fidelity web ecosystems, AI infrastructure, and luxury digital products.",
     images: ["/opengraph-image"],
   },
 
   // ── Verification (add codes after registering in Search Console) ─────────
   verification: {
-    google: "977ef236dc2cb44b",
+    google: "uEZfWooSAdetShLFZSGiepPZQ6jlysmY1ydFbP0TzIE",
     // bing: "REPLACE_WITH_BING_VERIFICATION_CODE",
   },
 
@@ -183,6 +183,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
+        <meta name="google-site-verification" content="uEZfWooSAdetShLFZSGiepPZQ6jlysmY1ydFbP0TzIE" />
         {/* JSON-LD: Organization */}
         <script
           type="application/ld+json"
